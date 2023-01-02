@@ -15,26 +15,47 @@
 
         <div class="row">
           <div class="col">
-            
-            <form action="" method="post">
+
+            <form action="/registrar" method="post">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nome">
-              </div>
-              
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="E-mail">
+                <input type="text" class="form-control" placeholder="Nome" name="nome">
               </div>
 
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Senha">
+                <input type="text" class="form-control" placeholder="E-mail" name="email">
               </div>
-              
+
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Senha" name="senha">
+              </div>
+
               <div class="mt-4 mb-4">
                 <small class="form-text">
                   Ao inscrever-se, você concorda com os Termos de Serviço e com as Políticas de Privacidade, incluindo o Uso de Cookies. Outras pessoas poderão encontrar você pelo e-mail ou número de telefone fornecido · Opções de Privacidade
                 </small>
               </div>
               <button type="submit" class="btn btn-primary btn-block">Inscrever-se</button>
+
+              <?php
+              if (($this->view->erroCadastroPreenchimento)):
+              ?>
+
+                <small class="form-text text-danger">*Verifique se os campos foram preenchidos corretamente</small>
+
+              <?php
+              endif;
+              ?>
+
+              <?php
+              if (($this->view->erroCadastroEmail)):
+              ?>
+
+                <small class="form-text text-danger">*Email já existente</small>
+
+              <?php
+              endif;
+              ?>
+
             </form>
 
           </div>
@@ -44,8 +65,3 @@
     </div>
   </div>
 </div>
-
-
-
-    
-  
