@@ -14,14 +14,21 @@ class AppController extends Action{
             $this->validaAutenticacao();
 
             $tweet = Container::getModel('tweet');
+            $usuario = Container::getModel('Usuario');
+
             $tweet->__set('id_usuario', $_SESSION['id']);
-            $tweets = $tweet->getAll();
+            $usuario->__set('id', $_SESSION['id']);
 
-            //print_r($tweets);
+            $this->view->tweets = $tweet->getAll();;
 
-            $this->view->tweets = $tweets;
+            $this->view->info = $usuario->getInfoUsuario();
+            $this->view->totalTweets = $usuario->getTotalTweets();
+            $this->view->totalSeguindo = $usuario->getTotalSeguindo();
+            $this->view->totalSeguidores = $usuario->getTotalSeguidores();
 
-            $this->render('timeline','layout');
+        
+
+            $this->render('timeline');
 
       
 
