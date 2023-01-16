@@ -114,6 +114,26 @@ class AppController extends Action{
 
     }
 
+    public function remover(){
+
+        $this->validaAutenticacao();
+
+        $tweet_ser_removido = isset($_GET['id_tweet']) ? $_GET['id_tweet'] : '';
+
+        $tweet = Container::getModel('tweet');
+
+        $tweet->__set('id', $tweet_ser_removido);
+        $tweet->__set('id_usuario', $_SESSION['id']);
+
+        $tweet->remover();
+
+        header('Location: /timeline');
+
+
+
+    
+    }
+
 
 
 }
