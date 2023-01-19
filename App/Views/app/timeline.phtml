@@ -1,21 +1,21 @@
 <nav class="navbar navbar-expand-lg menu">
 	<div class="container">
-	  <div class="navbar-nav">
-	  	<a class="menuItem" href="/timeline">
-	  		Home
-	  	</a>
+		<div class="navbar-nav">
+			<a class="menuItem" href="/timeline">
+				Home
+			</a>
 
-	  	<a class="menuItem" href="/sair">
-	  		Sair
-	  	</a>
+			<a class="menuItem" href="/sair">
+				Sair
+			</a>
 			<img src="/img/twitter_logo.png" class="menuIco" />
-	  </div>
+		</div>
 	</div>
 </nav>
 
 <div class="container mt-5">
 	<div class="row pt-2">
-		
+
 		<div class="col-md-3">
 
 			<div class="perfil">
@@ -24,10 +24,10 @@
 				</div>
 
 				<div class="perfilPainel">
-					
+
 					<div class="row mt-2 mb-2">
 						<div class="col mb-2">
-							<span class="perfilPainelNome"><?php echo($this->view->info['nome']) ?></span>
+							<span class="perfilPainelNome"><?php echo ($this->view->info['nome']) ?></span>
 						</div>
 					</div>
 
@@ -35,17 +35,17 @@
 
 						<div class="col">
 							<span class="perfilPainelItem">Tweets</span><br />
-							<span class="perfilPainelItemValor"><?php echo($this->view->totalTweets['total_tweet']) ?></span>
+							<span class="perfilPainelItemValor"><?php echo ($this->view->totalTweets['total']) ?></span>
 						</div>
 
 						<div class="col">
 							<span class="perfilPainelItem">Seguindo</span><br />
-							<span class="perfilPainelItemValor"><?php echo($this->view->totalSeguindo['total_seguindo']) ?></span>
+							<span class="perfilPainelItemValor"><?php echo ($this->view->totalSeguindo['total_seguindo']) ?></span>
 						</div>
 
 						<div class="col">
 							<span class="perfilPainelItem">Seguidores</span><br />
-							<span class="perfilPainelItemValor"><?php echo($this->view->totalSeguidores['total_seguidores']) ?></span>
+							<span class="perfilPainelItemValor"><?php echo ($this->view->totalSeguidores['total_seguidores']) ?></span>
 						</div>
 
 					</div>
@@ -60,7 +60,7 @@
 				<div class="col tweetBox">
 					<form action="/tweet" method="post">
 						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tweet"></textarea>
-						
+
 						<div class="col mt-2 d-flex justify-content-end">
 							<button type="submit" class="btn btn-primary">Tweet</button>
 						</div>
@@ -69,27 +69,42 @@
 				</div>
 			</div>
 
-			<?php foreach($this->view->tweets as $id_tweet => $tweet){?>
+			<?php foreach ($this->view->tweets as $id_tweet => $tweet) { ?>
 
 				<div class="row tweet">
 					<div class="col">
-						<p><strong><?php echo $tweet['nome'];?></strong> <span class="text text-muted"> <?php echo $tweet['data']; ?> </span></p>
-						<p><?php echo $tweet['tweet'];?></p>
+						<p><strong><?php echo $tweet['nome']; ?></strong> <span class="text text-muted"> <?php echo $tweet['data']; ?> </span></p>
+						<p><?php echo $tweet['tweet']; ?></p>
 
 						<br />
 
-						<?php if($tweet['id_usuario'] == $_SESSION['id']):?>
-						<form action="/remover_tweet?id_tweet=<?php echo $tweet['id']; ?>" method="post">
-							<div class="col d-flex justify-content-end">
-								<button type="submit" class="btn btn-danger"><small>Remover</small></button>
-							</div>
-						</form>
+						<?php if ($tweet['id_usuario'] == $_SESSION['id']) : ?>
+							<form action="/remover_tweet?id_tweet=<?php echo $tweet['id']; ?>" method="post">
+								<div class="col d-flex justify-content-end">
+									<button type="submit" class="btn btn-danger"><small>Remover</small></button>
+								</div>
+							</form>
 						<?php endif; ?>
 
 					</div>
 				</div>
 
 			<?php }; ?>
+
+			<div class="rol">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+
+						<li class="page-item"><a class="page-link" href="?pagina=1">Primeira</a></li>
+
+						<?php for($i = 1; $i <= $this->view->total_de_paginas; $i++):?>
+							<li class="page-item <?php echo $this->view->pagina_ativa == $i ? 'active' : '' ?>"><a class="page-link" href="?pagina=<?php echo $i ?>"> <?php echo $i; ?> </a></li>
+						<?php endfor; ?>
+	
+						<li class="page-item"><a class="page-link" href="?pagina=<?php echo $this->view->total_de_paginas ?>">Ultima </a></li>
+					</ul>
+				</nav>
+			</div>
 
 		</div>
 
